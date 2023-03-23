@@ -1,70 +1,102 @@
-# Getting Started with Create React App
+---
+# 23-React1 이진구 
+## 강의날 3/9 2주차
+---
+1. vscode에서git config --global user.email "you@example.com" , git config --global user.name "Your Name" 통해 계정 연결
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+2. 리액트를 위한 레퍼지토리 만들기
 
-## Available Scripts
+3. 깃허브 레퍼지토리와 vscode를 연결
 
-In the project directory, you can run:
+4. vscode에서 commit과 push 하는 법 배우고 익히기
 
-### `npm start`
+5. 교재 chapter 0 준비하기(HTML,CSS,JS 개념에 대하여)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+  HTML:웹 사이트의 뼈대를 구성하는 테그(single page application)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+  CSS: 웹 사이트의 세세한 부분까지의 디자인을 표현
 
-### `npm test`
+  JS: 동적인 부분 표현
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+6. 자바스크립트 자세히
 
-### `npm run build`
+다양한 브라우저의 등장(익스플러우러,엣지,크롬)(호환성)
+자바 스크립트로 호환성을 극복
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+이크마스크립트 ES6(ECMA-262) 자바스크립트 윗 단계 인듯하다.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+자바스크립트의 자료형
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+var 중복선언 가능, 재할당가능  let 중복선언 불가능, 재할당 가능  const 중복선언 불가능, 재할당 불가능(상수)
 
-### `npm run eject`
+7. 리액트는 자바스크립트완 연결 되어 있다. (강조하시는 이유)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+8. JSON 자바스크립트 오브젝트 노티션 style
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+key : key value
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+9. 자바스크립트의 연산자 
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+대입연산자, 산술연산자, 증감 연산자(postfix 방식 (먼저더하기?),prefix 방식(나중에 더하기?))
 
-## Learn More
+=== 세개일땐 속성까지 따짐
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+10. 자바스크립트 함수(함수 공부할때 자세히 잘할것)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+function 함수 
+Arrow 함수 : 리액트에서는 화살표함수를 많이 씀
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 강의날 3/16 3주차
+---
+node js 설치 후 cmd에서 설치 확인(node -v)
 
-### Analyzing the Bundle Size
+리액트의 장점
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+1. 빠른 업데이트와 렌더링 속도(Virtual DOM)
 
-### Making a Progressive Web App
+DOM은 동기식 Virtual DOM은 비동기식 이다.(서버와 클라이언트가 같이 움직이냐 따로 움직이냐)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+통채로 움직이는건 DOM , 필요한 부분만 따로 가져오는 것은 Virtual DOM
 
-### Advanced Configuration
+브라우저 동작원리
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+![image](https://user-images.githubusercontent.com/116775121/225492298-26f5ebc7-55a7-48be-92b5-13c4fe29813f.png)
 
-### Deployment
+일반적인 브라우저 작동원리이다.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+2. 컨포넌트 기반 구조
 
-### `npm run build` fails to minify
+리액트의 모든 페이지는 컴포넌트로 구성, 하나의 컴포넌트는 다른 여러개의 컴포넌트로 조합으로 구성할 수 있음
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+레고블럭 조립처럼 웹사이트 개발 , 재사용성이 뛰어남
+
+3. 재사용성
+
+반복적인 작업을 줄여주어 생상성 향상 , 유지보수 용이 
+
+재사용성이 가능하려면 해당 모듈의 의존성이 없어야 함
+
+![image](https://user-images.githubusercontent.com/116775121/225494127-9b917820-78c9-45b8-9544-1a24bbd6322d.png)
+
+4. 메타에서 오픈소스 프레적트로 관리하고 있어 계속 발전
+
+5. 활발한 지식공유 & 커뮤니티
+
+6. 모바일 앱 개발가능
+
+리액트 네이티브라는 모바일 환경 UI프레임워크를 사용하면 크로스 플랫폼 모방일 앱을 개발할 수 있음
+
+
+리액트의 단점
+
+1. 반대한 학습량
+
+2. 높은 상태 관리 복잡도
+
+html.js 실습 예제 해보기
+
+새로운 작업폴더에 들어가서 터미널에서 npx create-react-app [폴더이름] 작성하면 install을 시작함
+설치가 되면 작업 폴더를 다시 열고 npm start 하면 됌
+
