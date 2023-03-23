@@ -1,5 +1,5 @@
-import React from "react"
-import Book from "./book" //Book 컴포넌트 가져다 쓰니까 임포트
+import React from "react" //임포트
+import Book from "./book" //Book 컴포넌트 가져다 쓰니까 임포트(상대경로)
 
 function Library(props) {
   return( //Book을 컴포넌트해서 div안에서 사용 가능
@@ -11,4 +11,4 @@ function Library(props) {
   )
 }
 
-export default Library
+export default Library //익스포트(다른곳에서 사용가능)
