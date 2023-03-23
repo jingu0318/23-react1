@@ -102,4 +102,16 @@ html.js 실습 예제 해보기
 ---
 ## 강의날 3/23 4주차
 ---
-1. 레포지토리를 다 지우고 npc create-reat-app 을 통해 새로운 작업폴더를 만들었다. 작업폴더를 새로 연결해서 레포지토리를 생성했다.
+레포지토리를 다 지우고 npc create-reat-app 을 통해 새로운 프로젝트 생성. 작업폴더를 새로 연결해서 레포지토리를 생성했다. 터미널에서 cd [폴더이름] 을 통해 작업폴더로 와서 npm start를 하면 react가 시작된다.
+
+1. JSX(Java Script XML)
+ java script에 xml을 추가한 것 ,,ex const 변수명 = html문;
+
+2. JSX 역할과 장점: 가독성 높임(코드가 간결),자바스크립트로 자동변환(createElement), 해킹을 방어
+
+3. JSX 사용법
+
+자바스크립트문법에 xml,html 섞어 사용 
+
+html,xml에 자바스크립트 코들 사용하고 싶다면{} 괄호사용
+
