@@ -1,51 +1,24 @@
----
+
 # 23-React1 이진구 
-## 강의날 3/9 2주차
 ---
-1. vscode에서git config --global user.email "you@example.com" , git config --global user.name "Your Name" 통해 계정 연결
+## 강의날 3/30 5주차
+---
 
-2. 리액트를 위한 레퍼지토리 만들기
+---
+## 강의날 3/23 4주차
+---
+레포지토리를 다 지우고 npc create-reat-app 을 통해 새로운 프로젝트 생성. 작업폴더를 새로 연결해서 레포지토리를 생성했다. 터미널에서 cd [폴더이름] 을 통해 작업폴더로 와서 npm start를 하면 react가 시작된다.
 
-3. 깃허브 레퍼지토리와 vscode를 연결
+1. JSX(Java Script XML)
+ java script에 xml을 추가한 것 ,,ex const 변수명 = html문;
 
-4. vscode에서 commit과 push 하는 법 배우고 익히기
+2. JSX 역할과 장점: 가독성 높임(코드가 간결),자바스크립트로 자동변환(createElement), 해킹을 방어
 
-5. 교재 chapter 0 준비하기(HTML,CSS,JS 개념에 대하여)
+3. JSX 사용법
 
-  HTML:웹 사이트의 뼈대를 구성하는 테그(single page application)
+자바스크립트문법에 xml,html 섞어 사용 
 
-  CSS: 웹 사이트의 세세한 부분까지의 디자인을 표현
-
-  JS: 동적인 부분 표현
-
-6. 자바스크립트 자세히
-
-다양한 브라우저의 등장(익스플러우러,엣지,크롬)(호환성)
-자바 스크립트로 호환성을 극복
-
-이크마스크립트 ES6(ECMA-262) 자바스크립트 윗 단계 인듯하다.
-
-자바스크립트의 자료형
-
-var 중복선언 가능, 재할당가능  let 중복선언 불가능, 재할당 가능  const 중복선언 불가능, 재할당 불가능(상수)
-
-7. 리액트는 자바스크립트완 연결 되어 있다. (강조하시는 이유)
-
-8. JSON 자바스크립트 오브젝트 노티션 style
-
-key : key value
-
-9. 자바스크립트의 연산자 
-
-대입연산자, 산술연산자, 증감 연산자(postfix 방식 (먼저더하기?),prefix 방식(나중에 더하기?))
-
-=== 세개일땐 속성까지 따짐
-
-10. 자바스크립트 함수(함수 공부할때 자세히 잘할것)
-
-function 함수 
-Arrow 함수 : 리액트에서는 화살표함수를 많이 씀
-
+html,xml에 자바스크립트 코들 사용하고 싶다면{} 괄호사용
 ---
 ## 강의날 3/16 3주차
 ---
@@ -98,20 +71,50 @@ html.js 실습 예제 해보기
 
 새로운 작업폴더에 들어가서 터미널에서 npx create-react-app [폴더이름] 작성하면 install을 시작함
 설치가 되면 작업 폴더를 다시 열고 npm start 하면 됌
-
 ---
-## 강의날 3/23 4주차
+## 강의날 3/9 2주차
 ---
-레포지토리를 다 지우고 npc create-reat-app 을 통해 새로운 프로젝트 생성. 작업폴더를 새로 연결해서 레포지토리를 생성했다. 터미널에서 cd [폴더이름] 을 통해 작업폴더로 와서 npm start를 하면 react가 시작된다.
+1. vscode에서git config --global user.email "you@example.com" , git config --global user.name "Your Name" 통해 계정 연결
 
-1. JSX(Java Script XML)
- java script에 xml을 추가한 것 ,,ex const 변수명 = html문;
+2. 리액트를 위한 레퍼지토리 만들기
 
-2. JSX 역할과 장점: 가독성 높임(코드가 간결),자바스크립트로 자동변환(createElement), 해킹을 방어
+3. 깃허브 레퍼지토리와 vscode를 연결
 
-3. JSX 사용법
+4. vscode에서 commit과 push 하는 법 배우고 익히기
 
-자바스크립트문법에 xml,html 섞어 사용 
+5. 교재 chapter 0 준비하기(HTML,CSS,JS 개념에 대하여)
 
-html,xml에 자바스크립트 코들 사용하고 싶다면{} 괄호사용
+  HTML:웹 사이트의 뼈대를 구성하는 테그(single page application)
+
+  CSS: 웹 사이트의 세세한 부분까지의 디자인을 표현
+
+  JS: 동적인 부분 표현
+
+6. 자바스크립트 자세히
+
+다양한 브라우저의 등장(익스플러우러,엣지,크롬)(호환성)
+자바 스크립트로 호환성을 극복
+
+이크마스크립트 ES6(ECMA-262) 자바스크립트 윗 단계 인듯하다.
+
+자바스크립트의 자료형
+
+var 중복선언 가능, 재할당가능  let 중복선언 불가능, 재할당 가능  const 중복선언 불가능, 재할당 불가능(상수)
+
+7. 리액트는 자바스크립트완 연결 되어 있다. (강조하시는 이유)
+
+8. JSON 자바스크립트 오브젝트 노티션 style
+
+key : key value
+
+9. 자바스크립트의 연산자 
+
+대입연산자, 산술연산자, 증감 연산자(postfix 방식 (먼저더하기?),prefix 방식(나중에 더하기?))
+
+=== 세개일땐 속성까지 따짐
+
+10. 자바스크립트 함수(함수 공부할때 자세히 잘할것)
+
+function 함수 
+Arrow 함수 : 리액트에서는 화살표함수를 많이 씀
 
