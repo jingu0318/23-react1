@@ -11,4 +11,16 @@ function CommentList(props){
   )
 }
 
+function CommentList(props){
+  return(
+    <div>
+      {CommentList.map((foo)=> {
+        return(
+          <Comment name={foo.name} comment={foo.comment}/>
+        )
+      })}
+    </div>
+  )
+}
+
 export default CommentList;
