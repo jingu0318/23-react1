@@ -1,9 +1,238 @@
+---
+## 강의날 4/6 6주차
+---
+5강 컴포넌트 추출
+
+컴포넌트는 기본적으로 하나의 기능만 할 수 있게 하는것이좋다.
+
+chapter_05
+comment.jsx 파일 내용
+```
+import React from "react";
+// css 부분
+const styles = {
+  wrapper: {
+      margin: 8,
+      padding: 8,
+      display: "flex",
+      flexDirection: "row",
+      border: "1px solid grey",
+      borderRadius: 16,
+  },
+  imageContainer: {},
+  image: {
+      width: 50,
+      height: 50,
+      borderRadius: 25,
+  },
+  contentContainer: {
+      marginLeft: 8,
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+  },
+  nameText: {
+      color: "black",
+      fontSize: 16,
+      fontWeight: "bold",
+  },
+  commentText: {
+      color: "black",
+      fontSize: 16,
+  },
+};
+
+function Comment(props){
+  return(
+    <div style={styles.wrapper}>
+      <div style={styles.imageContainer}>
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"
+          alt="프로필 이미지"
+          style={styles.image}
+       />
+      </div>
+      <div style={styles.contentContainer}>
+        <span style={styles.nameText}>{props.name}</span>
+        <span style={styles.commentText}>{props.comment}</span>
+      </div>
+    </div>
+  )
+}
+
+export default Comment;
+```
+commentList.jsx 파일
+```
+import React from "react"; //컴포넌트 만들때는 리액트 임포트가 기본이다.
+import Comment from "./Comment";
+
+const comments = [
+    {
+        name: "2진구",
+        comment: "안녕하세요, 2진구입니다.",
+    },
+    {
+        name: "2진9",
+        comment: "리액트 2진9!",
+    },
+    {
+        name: "279",
+        comment: "저도 279 배워보고 싶어요!!",
+    },
+];
+
+function CommentList(props) {
+    return (
+        <div>
+            {comments.map((comment) => {
+                return (
+                    <Comment name={comment.name} comment={comment.comment} />
+                );
+            })}
+        </div>
+    );
+}
+
+export default CommentList;
+```
+두개 파일 작업후 index.js 에 import CommentList from './chapter_05/CommentList'; 문장 추가 후 <CommentList />  변환 하면 npm start 구현 가능
+
+chapter_06
+Notification.jsx 파일 내용
+```
+import React from "react";
+
+const styles = {
+    wrapper: {
+        margin: 8,
+        padding: 8,
+        display: "flex",
+        flexDirection: "row",
+        border: "1px solid grey",
+        borderRadius: 16,
+    },
+    messageText: {
+        color: "black",
+        fontSize: 16,
+    },
+};
+
+class Notification extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {};
+    }
+
+    componentDidMount() {
+        console.log(`${this.props.id} componentDidMount() called.`);
+    }
+
+    componentDidUpdate() {
+        console.log(`${this.props.id} componentDidUpdate() called.`);
+    }
+
+    componentWillUnmount() {
+        console.log(`${this.props.id} componentWillUnmount() called.`);
+    }
+
+    render() {
+        return (
+            <div style={styles.wrapper}>
+                <span style={styles.messageText}>{this.props.message}</span>
+            </div>
+        );
+    }
+}
+
+export default Notification;
+```
+NotificationList.jsx 파일내용
+```
+import React from "react";
+import Notification from "./Notification";
+
+const reservedNotifications = [
+    {
+        id: 1,
+        message: "안녕하세요, 오늘 일정을 알려드립니다.",
+    },
+    {
+        id: 2,
+        message: "점심식사 시간입니다.",
+    },
+    {
+        id: 3,
+        message: "이제 곧 미팅이 시작됩니다.",
+    },
+];
+
+var timer;
+
+class NotificationList extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            notifications: [],
+        };
+    }
+
+    componentDidMount() {
+        const { notifications } = this.state;
+        timer = setInterval(() => {
+            if (notifications.length < reservedNotifications.length) {
+                const index = notifications.length;
+                notifications.push(reservedNotifications[index]);
+                this.setState({
+                    notifications: notifications,
+                });
+            } else {
+                this.setState({
+                    notifications: [],
+                });
+                clearInterval(timer);
+            }
+        }, 1000);
+    }
+
+    componentWillUnmount() {
+        if (timer) {
+            clearInterval(timer);
+        }
+    }
+
+    render() {
+        return (
+            <div>
+                {this.state.notifications.map((notification) => {
+                    return (
+                        <Notification
+                            key={notification.id}
+                            id={notification.id}
+                            message={notification.message}
+                        />
+                    );
+                })}
+            </div>
+        );
+    }
+}
+
+export default NotificationList;
+```
+변경 후 index.js 파일에 import NotificationList from './chapter_06/NotificationList'; 문장 추가 후 <NotificationList /> 으로 변경 하면 npm start 가능 
+
+ReactDeveloper tools 크롬으로 다운
+하면 npm start 후  웹창(npm web 창에서만 가능)에서 검사(F12) 버튼 누른 후 엘리먼트 옆 표시에서 ReactDeveloper tools 기능을 실행 가능하다. 
+
 
 # 23-React1 이진구 
 ---
 ## 강의날 3/30 5주차
 ---
-#### 클론파일할려면 폴더 안에 .git 이 있는 폴더에 하는 것이 아닌 아무것도 작업을 안한 오픈폴더에 할것 , 클론 주소를 위에 창에 붙여 넣기 해야됌
+#### 클론파일할려면 폴더 안에 .git 이 있는 폴더에 하는 것이 아닌 아무것도 작업을 안한 오픈폴더에 할것 , 클론 주소를 위에 창에 붙여 넣기 해야됨
 
 ### 4장
 1. 엘리먼트 요소
