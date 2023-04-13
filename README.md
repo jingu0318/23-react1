@@ -2,6 +2,134 @@
 ---
 ## 강의날 4/13 7주차
 ---
+지난 수업시간 되돌아보는 시간 chaptere_06에서 NotificationList.jsx는 마운트,언마운트를 통해 원하는 시기에 함수를 보여줄 수 있다. 
+
+6.4 State란
+
+리액트 컴포넌트의 변경 가능한 데이터(가장많이 사용하기도 한다.) 
+
+7장
+
+1. 훅이란(중요하다.)
+
+클래스형 컴포넌트에서는 생서자에서 state를 정의하고, setState()함수를 통해 state를 업데이트
+
+state와 생명주기 기능에 갈고리를 걸어원하는 시점에정해진 함수를 실행되도록 만든 함수
+
+훅의 이름은 모두 use로 시작
+
+2. useState
+
+함수형 컴포넌트에서 state를 사용하기 위한 Hook
+
+ex) const[count,wetCount] = useState(0);
+
+... setCount(count+1) 호출될때마다 카운트 + 1
+
+3. useEffect
+
+사이드 이펙트를 수행하기 위함(부수적인 효과, 영향)
+
+클래스 컴포넌트의 생명주기 함수와 같은 기능을 하나로 통합한 기능을 제공
+
+랜더링 외에 실행해야 하는 부수적인 코드
+
+useEffect(이펙트함수, 의존성 배열);
+
+이펙트함수는 처음 컴포넌트가 렌더링 된 이후, 재 렌더링 이후에 실행
+
+두번째 생략하여 배열없이 useEffect를 사용하면 DOM 변견된 이후 해당 이펙트 함수 실행 (마운트,언마운트시)
+
+state 나 effect 둘다 사용하기전 improt React, {useState,useEffect} form "react"; 를 해주면 된다.
+
+4. useMemo
+Memoizde value를 리턱하는 훅
+
+연산작업이 많은 것, 렌더링이 일어나는 동안 실행
+
+5. useCallvack 
+
+useMemodhk 유사한 역할
+
+차이점은 값이 아님 함수를 반환
+
+6. useRef 
+
+래퍼런스를 상용하기 위한 훅
+
+ex) const refContainer = useRef(초기값);
+
+라이프타임 전체에 걸쳐서 유지(마운트 해제전까지 유지된다는 말)
+
+7. 훅의 규칙
+
+7.1 무조건 최상의 레벨에서만 호출
+7.2 리액트 함수 컴포넌트에서만 훅을 호출
+
+8. 나만의 훅 만들기
+
+커스텀 훅을 만들어야한다.
+
+중간: a4 용지 주고 작업지시서를 작성하는 것(오픈북으로진행)
+
+useCounter.jsx 
+```js
+import React, {useState} from"react";
+
+function useCounter(initialValue){
+  const[count, setCount] = useState(initialValue);
+
+  const increaseCount = () => setCount((cont) => count + 1);
+  const decreaseCount = () => setCount((count) => Math.max(count - 1, 0));
+
+  retrun [count, increaseCount, decreaseCount];
+}
+
+export default useCounter;
+```
+
+Accommodate.jsx 
+```js
+import React, { useState, useEffect } from "react";
+import useCounter from "./useCounter";
+
+const MAX_CAPACITY = 10;
+
+function Accommodate(props) {
+    const [isFull, setIsFull] = useState(false);
+    const [count, increaseCount, decreaseCount] = useCounter(0);
+
+    useEffect(() => {
+        console.log("======================");
+        console.log("useEffect() is called.");
+        console.log(`isFull: ${isFull}`);
+    });
+
+    useEffect(() => {
+        setIsFull(count >= MAX_CAPACITY);
+        console.log(`Current count value: ${count}`);
+    }, [count]);
+
+    return (
+        <div style={{ padding: 16 }}>
+            <p>{`총 ${count}명 수용했습니다.`}</p>
+
+            <button onClick={increaseCount} disabled={isFull}>
+                입장
+            </button>
+            <button onClick={decreaseCount}>퇴장</button>
+
+            {isFull && <p style={{ color: "red" }}>정원이 가득찼습니다.</p>}
+        </div>
+    );
+}
+
+export default Accommodate;
+```
+
+index.js 수정
+
+import Accommodate from './chapter_07/Accommodate'; 추가 후  <Accommodate />  로 수정
 
 ---
 ## 강의날 4/6 6주차
