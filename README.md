@@ -1,5 +1,7 @@
+
+# 23-React1 이진구 
 ---
-## 강의날 4/13 7주차
+ ## 강의날 4/13 7주차
 ---
 지난 수업시간 되돌아보는 시간 chaptere_06에서 NotificationList.jsx는 마운트,언마운트를 통해 원하는 시기에 함수를 보여줄 수 있다. 
 
@@ -383,7 +385,6 @@ ReactDeveloper tools 크롬으로 다운
 하면 npm start 후  웹창(npm web 창에서만 가능)에서 검사(F12) 버튼 누른 후 엘리먼트 옆 표시에서 ReactDeveloper tools 기능을 실행 가능하다. 
 
 
-# 23-React1 이진구 
 ---
 ## 강의날 3/30 5주차
 ---
