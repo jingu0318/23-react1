@@ -1,7 +1,8 @@
 //4.4. 시계 만들기 Page132
 //Clock 컴포넌트
-import React from 'react';
-function tick(){
+import React from "react";
+
+function Clock(){ //tick()
   const element = (
     <div>
       <h1>안녕, 리액트!</h1>
