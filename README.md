@@ -7,7 +7,7 @@
 
 chapter_05
 comment.jsx 파일 내용
-```
+```js
 import React from "react";
 // css 부분
 const styles = {
@@ -63,7 +63,7 @@ function Comment(props){
 export default Comment;
 ```
 commentList.jsx 파일
-```
+```js
 import React from "react"; //컴포넌트 만들때는 리액트 임포트가 기본이다.
 import Comment from "./Comment";
 
@@ -100,7 +100,7 @@ export default CommentList;
 
 chapter_06
 Notification.jsx 파일 내용
-```
+```js
 import React from "react";
 
 const styles = {
@@ -149,7 +149,7 @@ class Notification extends React.Component {
 export default Notification;
 ```
 NotificationList.jsx 파일내용
-```
+```js
 import React from "react";
 import Notification from "./Notification";
 
