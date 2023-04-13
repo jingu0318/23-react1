@@ -6,7 +6,7 @@ function useCounter(initialValue){
   const increaseCount = () => setCount((cont) => count + 1);
   const decreaseCount = () => setCount((count) => Math.max(count - 1, 0));
 
-  retrun [count, increaseCount, decreaseCount];
+  return [count, increaseCount, decreaseCount];
 }
 
 export default useCounter;
