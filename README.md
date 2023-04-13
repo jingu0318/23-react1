@@ -1,4 +1,3 @@
-
 ---
 ## 강의날 4/13 7주차
 ---
@@ -127,9 +126,15 @@ function Accommodate(props) {
 export default Accommodate;
 ```
 
-index.js 수정
+index.js 에서 할 작업
+```js
+import Accommodate from './chapter_07/Accommodate'; //추가
 
-import Accommodate from './chapter_07/Accommodate'; 추가 후  <Accommodate />  로 수정
+<React.StrictMode>
+      <Accommodate />   //Accommodate 수정
+</React.StrictMode>
+```
+npm start 하면 작동
 
 ---
 ## 강의날 4/6 6주차
@@ -229,7 +234,15 @@ function CommentList(props) {
 
 export default CommentList;
 ```
-두개 파일 작업후 index.js 에 import CommentList from './chapter_05/CommentList'; 문장 추가 후 <CommentList />  변환 하면 npm start 구현 가능
+index.js 에서 할 작업
+```js
+import CommentList from './chapter_05/CommentList'; //추가
+
+<React.StrictMode>
+      <CommentList />   //CommentList 수정
+</React.StrictMode>
+```
+npm start 하면 작동
 
 chapter_06
 Notification.jsx 파일 내용
@@ -355,7 +368,16 @@ class NotificationList extends React.Component {
 
 export default NotificationList;
 ```
-변경 후 index.js 파일에 import NotificationList from './chapter_06/NotificationList'; 문장 추가 후 <NotificationList /> 으로 변경 하면 npm start 가능 
+index.js 에서 할 작업
+```js
+import NotificationList from './chapter_06/NotificationList'; //추가
+
+<React.StrictMode>
+      <NotificationList />   //NotificationList 수정
+</React.StrictMode>
+```
+
+npm start 하면 작동
 
 ReactDeveloper tools 크롬으로 다운
 하면 npm start 후  웹창(npm web 창에서만 가능)에서 검사(F12) 버튼 누른 후 엘리먼트 옆 표시에서 ReactDeveloper tools 기능을 실행 가능하다. 
@@ -387,12 +409,18 @@ type > button(종류) props > color(색속성),children(내용속성)
 만약 내용을 바꿀려면 컴포넌트를 통해 새로운 엘리먼트를 생성하면 됌(교체하는 작업하기 위해 Virtual DOM을 사용)
 
 6. 엘리먼트 렌더링하기 
+```js
+<div id="root"></div>
+```
+리액트에 필수로 들어가는 중요한 코드 
+```js
+Root DOM node const element = <h1> 안녕, 리액트 </h1>;
+```
+렌더링하는 함수
 
-<div id="root"></div> 리액트에 필수로 들어가는 중요한 코드 > Root DOM node
-
-const element = <h1> 안녕, 리액트 </h1>;
-
-ReactDOM.render(element, document.getElementById('root')); >렌더링하는 함수
+```js
+ReactDOM.render(element, document.getElementById('root')); 
+```
 
 7. 실전
 
@@ -402,6 +430,65 @@ jsx 파일을 만들고 임포트 익스포트를 하면 index.js 에서 <> 안�
 엘리먼트 정의, 생김새, 특징
 
 엘리먼트 렌더링과 컴포넌트
+
+Clock.jsx 파일
+```js
+import React from "react";
+
+function Clock(){ 
+  const element = (
+    <div>
+      <h1>안녕, 리액트!</h1>
+      <h2>현재 시간: {new Date().toLocaleTimeString()}</h2>
+    </div>
+  );
+}
+export default Clock;
+```
+Clock.html 파일
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <script type="text/babel"> //function 기능 이나 js 스크립트 기능을 html 파일에서 사용할때 <script>로 열어서 사용 할 것
+    function tick(){
+        const element = (
+          <div>
+            <h1>안녕, 리액트!</h1>
+            <h2>현재 시간: {new Date().toLocaleTimeString()}</h2>
+          </div>
+        );
+
+        ReactDOM.render(element, document.getElementById('root'));
+      }
+
+      setInterval(tick, 1000); // 1초마다 tick 함수를 사용
+  </script>
+  <div id="root"></div>  <!--루트는 스크립트 밖에서 사용하기-->
+  
+  
+</body>
+</html>
+```
+index.js 에서 할 작업
+```js
+import Clock from './chapter_04/Clock'; //추가
+
+<React.StrictMode>
+      <Clock />   //Clock으로 수정
+</React.StrictMode>
+```
+
+npm start 하면 작동
 
 ###5장
 1. 2장에서 말했다 시피 리액트는 컴포넌트 기반
@@ -501,6 +588,47 @@ DOM은 동기식 Virtual DOM은 비동기식 이다.(서버와 클라이언트�
 2. 높은 상태 관리 복잡도
 
 html.js 실습 예제 해보기
+
+book.jsx 파일
+```js
+import React from "react" //임포트
+
+function Book(props){ //컴퍼넌트 이름은 파일 이름과 같게! 해준다.
+  return(
+    <div>
+      <h1>{`이 책의 이름은 ${props.name}입니다.`}</h1>
+      <h2>{`이 책은 총 ${props.numOfPage}페이지로 이루어져 있습니다.`}</h2>
+    </div>
+  )
+}
+
+export default Book //다른 폴더에서 사용할 수 있게 해줌?
+```
+Library.jsx 파일
+```js
+import React from "react" //임포트
+import Book from "./Book" //Book 컴포넌트 가져다 쓰니까 임포트(상대경로)
+
+function Library(props) {
+  return( //Book을 컴포넌트해서 div안에서 사용 가능
+    <div> 
+      <Book name="처음만난 파이썬" numOfPage={300}></Book> 
+      <Book name="처음만난 AWS" numOfPage={400}></Book>
+      <Book name="처음만난 리액트" numOfPage={500}></Book>
+    </div>
+  )
+}
+
+export default Library //익스포트(다른곳에서 사용가능)
+```
+index.js 에서 할 작업
+```js
+import Library from './chapter_03/Library'; //추가
+
+<React.StrictMode>
+      <Library />   //Library 로 수정
+</React.StrictMode>
+```
 
 새로운 작업폴더에 들어가서 터미널에서 npx create-react-app [폴더이름] 작성하면 install을 시작함
 설치가 되면 작업 폴더를 다시 열고 npm start 하면 됌
