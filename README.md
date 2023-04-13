@@ -1,10 +1,309 @@
+---
+## 강의날 4/6 6주차
+---
+5강 컴포넌트 추출
+
+컴포넌트는 기본적으로 하나의 기능만 할 수 있게 하는것이좋다.
+
+chapter_05
+comment.jsx 파일 내용
+```js
+import React from "react";
+// css 부분
+const styles = {
+  wrapper: {
+      margin: 8,
+      padding: 8,
+      display: "flex",
+      flexDirection: "row",
+      border: "1px solid grey",
+      borderRadius: 16,
+  },
+  imageContainer: {},
+  image: {
+      width: 50,
+      height: 50,
+      borderRadius: 25,
+  },
+  contentContainer: {
+      marginLeft: 8,
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+  },
+  nameText: {
+      color: "black",
+      fontSize: 16,
+      fontWeight: "bold",
+  },
+  commentText: {
+      color: "black",
+      fontSize: 16,
+  },
+};
+
+function Comment(props){
+  return(
+    <div style={styles.wrapper}>
+      <div style={styles.imageContainer}>
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"
+          alt="프로필 이미지"
+          style={styles.image}
+       />
+      </div>
+      <div style={styles.contentContainer}>
+        <span style={styles.nameText}>{props.name}</span>
+        <span style={styles.commentText}>{props.comment}</span>
+      </div>
+    </div>
+  )
+}
+
+export default Comment;
+```
+commentList.jsx 파일
+```js
+import React from "react"; //컴포넌트 만들때는 리액트 임포트가 기본이다.
+import Comment from "./Comment";
+
+const comments = [
+    {
+        name: "2진구",
+        comment: "안녕하세요, 2진구입니다.",
+    },
+    {
+        name: "2진9",
+        comment: "리액트 2진9!",
+    },
+    {
+        name: "279",
+        comment: "저도 279 배워보고 싶어요!!",
+    },
+];
+
+function CommentList(props) {
+    return (
+        <div>
+            {comments.map((comment) => {
+                return (
+                    <Comment name={comment.name} comment={comment.comment} />
+                );
+            })}
+        </div>
+    );
+}
+
+export default CommentList;
+```
+두개 파일 작업후 index.js 에 import CommentList from './chapter_05/CommentList'; 문장 추가 후 <CommentList />  변환 하면 npm start 구현 가능
+
+chapter_06
+Notification.jsx 파일 내용
+```js
+import React from "react";
+
+const styles = {
+    wrapper: {
+        margin: 8,
+        padding: 8,
+        display: "flex",
+        flexDirection: "row",
+        border: "1px solid grey",
+        borderRadius: 16,
+    },
+    messageText: {
+        color: "black",
+        fontSize: 16,
+    },
+};
+
+class Notification extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {};
+    }
+
+    componentDidMount() {
+        console.log(`${this.props.id} componentDidMount() called.`);
+    }
+
+    componentDidUpdate() {
+        console.log(`${this.props.id} componentDidUpdate() called.`);
+    }
+
+    componentWillUnmount() {
+        console.log(`${this.props.id} componentWillUnmount() called.`);
+    }
+
+    render() {
+        return (
+            <div style={styles.wrapper}>
+                <span style={styles.messageText}>{this.props.message}</span>
+            </div>
+        );
+    }
+}
+
+export default Notification;
+```
+NotificationList.jsx 파일내용
+```js
+import React from "react";
+import Notification from "./Notification";
+
+const reservedNotifications = [
+    {
+        id: 1,
+        message: "안녕하세요, 오늘 일정을 알려드립니다.",
+    },
+    {
+        id: 2,
+        message: "점심식사 시간입니다.",
+    },
+    {
+        id: 3,
+        message: "이제 곧 미팅이 시작됩니다.",
+    },
+];
+
+var timer;
+
+class NotificationList extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            notifications: [],
+        };
+    }
+
+    componentDidMount() {
+        const { notifications } = this.state;
+        timer = setInterval(() => {
+            if (notifications.length < reservedNotifications.length) {
+                const index = notifications.length;
+                notifications.push(reservedNotifications[index]);
+                this.setState({
+                    notifications: notifications,
+                });
+            } else {
+                this.setState({
+                    notifications: [],
+                });
+                clearInterval(timer);
+            }
+        }, 1000);
+    }
+
+    componentWillUnmount() {
+        if (timer) {
+            clearInterval(timer);
+        }
+    }
+
+    render() {
+        return (
+            <div>
+                {this.state.notifications.map((notification) => {
+                    return (
+                        <Notification
+                            key={notification.id}
+                            id={notification.id}
+                            message={notification.message}
+                        />
+                    );
+                })}
+            </div>
+        );
+    }
+}
+
+export default NotificationList;
+```
+변경 후 index.js 파일에 import NotificationList from './chapter_06/NotificationList'; 문장 추가 후 <NotificationList /> 으로 변경 하면 npm start 가능 
+
+ReactDeveloper tools 크롬으로 다운
+하면 npm start 후  웹창(npm web 창에서만 가능)에서 검사(F12) 버튼 누른 후 엘리먼트 옆 표시에서 ReactDeveloper tools 기능을 실행 가능하다. 
+
 
 # 23-React1 이진구 
 ---
 ## 강의날 3/30 5주차
 ---
-클론파일할려면 폴더 안에 .git 이 있는 폴더에 하는 것이 아닌 아무것도 작업을 안한 오픈폴더에 할것
-클론 주소를 위에 창에 붙여 넣기 해야됌
+#### 클론파일할려면 폴더 안에 .git 이 있는 폴더에 하는 것이 아닌 아무것도 작업을 안한 오픈폴더에 할것 , 클론 주소를 위에 창에 붙여 넣기 해야됨
+
+### 4장
+1. 엘리먼트 요소
+
+엘리먼트란 리액트 앱의 가장 작은 빌딩 블록들
+
+2. 엘리먼트 생김새
+
+트리구조 헤더,바디(바디안에는 div , button 등 점점 세분화되어 내려간다.)
+
+3. 리액트를 쓸때는 js 사용하는 거처럼 그대로 사용하지말 것
+
+type > button(종류) props > color(색속성),children(내용속성)
+
+4. 파일이름을 커포넌트로 해야되서 다른 종류끼리는 분류를 해 주어야 한다.
+
+5. 엘리먼트 특징 : 불변성(한번 생선된 엘리먼트의 children이나 속성을 바꿀 수 없음)
+
+만약 내용을 바꿀려면 컴포넌트를 통해 새로운 엘리먼트를 생성하면 됌(교체하는 작업하기 위해 Virtual DOM을 사용)
+
+6. 엘리먼트 렌더링하기 
+
+<div id="root"></div> 리액트에 필수로 들어가는 중요한 코드 > Root DOM node
+
+const element = <h1> 안녕, 리액트 </h1>;
+
+ReactDOM.render(element, document.getElementById('root')); >렌더링하는 함수
+
+7. 실전
+
+jsx 파일을 만들고 임포트 익스포트를 하면 index.js 에서 <> 안에 사용할 jsx 파일 이름을 넣으면 jsx 파일이 사용 됌(?)
+
+8. 요약
+엘리먼트 정의, 생김새, 특징
+
+엘리먼트 렌더링과 컴포넌트
+
+###5장
+1. 2장에서 말했다 시피 리액트는 컴포넌트 기반
+
+컴포넌트는 재사용이 가능하기 때문에 전체 코드의 양을 줄일 수 있어 개발시간과 유지보수 비용 감소
+
+다만 입력은 Props 가 담당, 출력은 리액트 엘리먼트의 형태
+
+엘리먼트를 필요한 만큼 만들어 사용한다는 면에서 객체 지향의 개념과 비슷
+
+2. Props의 특징 : 읽기전용 , 변경할 수 없음 ,속성이 다른 엘리먼트를 생성하려면 새로운 Props를 컴포넌트에전달하면됌
+
+3. Pure 함수 vs Impure 함수
+
+Pure 함수는 인수로 받은 정보가 함수 내부에서도 변하지 않는 함수(모든리액트 컴포넌트는 Props에 관해서 Pure 함수 같은 역할 수행)
+
+Imprure 함수는 인수로 받은 정보가 함수 내부에서 변하는 함수
+
+4. Props 사용법
+
+ jsx에서는 key-value 쌍으로 구성
+ 
+ jsx를 사용하지 않고 props 전달방법은 createElement() 함수를 사용
+ 
+ createElement()함수의 두번째 매개변수가 > Props
+ 
+ 5.컴포넌트 만들기
+ 
+ 컴포넌트는 두종류로 나뉜다 .초기에 사용한 클래스형 컴포넌트, 이후 Hook이라는 개념이나오면서 최근에 많이 사용하는 함수형 컴포넌트
+ 
+ 6.컴포넌트 이름
+ 
+ 항상 대문자 , 파일이름과 컴포넌트이름 
+ 
+
 ---
 ## 강의날 3/23 4주차
 ---
@@ -17,7 +316,9 @@
 
 3. JSX 사용법
 
-자바스크립트문법에 xml,html 섞어 사용. html,xml에 자바스크립트 코들 사용하고 싶다면{} 괄호사용
+자바스크립트문법에 xml,html 섞어 사용 
+
+html,xml에 자바스크립트 코들 사용하고 싶다면{} 괄호사용
 ---
 ## 강의날 3/16 3주차
 ---
@@ -70,7 +371,6 @@ html.js 실습 예제 해보기
 
 새로운 작업폴더에 들어가서 터미널에서 npx create-react-app [폴더이름] 작성하면 install을 시작함
 설치가 되면 작업 폴더를 다시 열고 npm start 하면 됌
-
 ---
 ## 강의날 3/9 2주차
 ---
@@ -117,7 +417,4 @@ key : key value
 
 function 함수 
 Arrow 함수 : 리액트에서는 화살표함수를 많이 씀
-
-
-
 
