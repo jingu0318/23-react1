@@ -8,11 +8,12 @@ import Library from './chapter_03/Library'; // jsx 파일을 가져올때 사용
 import Clock from './chapter_04/Clock'; //컴포넌트 안쓰는건 흐릿하게 나옴
 import CommentList from './chapter_05/CommentList';
 import NotificationList from './chapter_06/NotificationList';
+import Accommodate from './chapter_07/Accommodate';
 
   const root = ReactDOM.createRoot(document.getElementById('root'));
   root.render(
     <React.StrictMode>
-      <NotificationList />  
+      <Accommodate />  
     </React.StrictMode>
   );
 
