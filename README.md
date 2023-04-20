@@ -23,7 +23,7 @@ state와 생명주기 기능에 갈고리를 걸어원하는 시점에정해진 
 
 함수형 컴포넌트에서 state를 사용하기 위한 Hook
 
-ex) const[count,wetCount] = useState(0);
+ex) const[count,setCount] = useState(0);
 
 ... setCount(count+1) 호출될때마다 카운트 + 1
 
