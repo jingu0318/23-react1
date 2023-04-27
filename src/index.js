@@ -9,12 +9,15 @@ import Library from './chapter_03/Library'; // jsx 파일을 가져올때 사용
 import CommentList from './chapter_05/CommentList';
 import NotificationList from './chapter_06/NotificationList';
 import Accommodate from './chapter_07/Accommodate';
+import Apple from './pt_1/Apple';
+import ConfirmButton from './chapter_08/ConfirmButton';
+import LandingPage from './chapter_09/LandingPage'
 
 
   const root = ReactDOM.createRoot(document.getElementById('root'));
   root.render(
     <React.StrictMode>
-      <Library />  
+      <LandingPage />  
     </React.StrictMode>
   );
 
