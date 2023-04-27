@@ -3,11 +3,11 @@ import useCounter from "./useCounter";
 
 const MAX_CAPACITY = 10;
 
-function Accommodate(props) {
-    const [isFull, setIsFull] = useState(false);
-    const [count, increaseCount, decreaseCount] = useCounter(0);
+function Accommodate(props) { //
+    const [isFull, setIsFull] = useState(false); // false는 초기값
+    const [count, increaseCount, decreaseCount] = useCounter(0); // 0도 초기값
 
-    useEffect(() => {
+    useEffect(() => { //첫랜더링이후 재랜더링할때 실행
         console.log("======================");
         console.log("useEffect() is called.");
         console.log(`isFull: ${isFull}`);
@@ -22,7 +22,7 @@ function Accommodate(props) {
         <div style={{ padding: 16 }}>
             <p>{`총 ${count}명 수용했습니다.`}</p>
 
-            <button onClick={increaseCount} disabled={isFull}>
+            <button onClick={increaseCount} disabled={isFull}>  
                 입장
             </button>
             <button onClick={decreaseCount}>퇴장</button>
@@ -30,6 +30,6 @@ function Accommodate(props) {
             {isFull && <p style={{ color: "red" }}>정원이 가득찼습니다.</p>}
         </div>
     );
-}
+} 
 
 export default Accommodate;
