@@ -1,6 +1,199 @@
 
 # 23-React1 이진구
 ---
+ ## 강의날 5/04 10주차
+--- 
+10.1 리스트와 키(지난시간에 잠깐봤지만 다시)
+
+리스트는 다수의 엘리먼트를 쉽게 렌더링할 수 있게 해준다.
+
+10.2 여러 개의 컴포넌트 렌더링하기
+
+배열에 들어 있는 엘리먼트를 map()함수를 이용하여 랜더링
+
+map()함수 예제
+```js
+const numbers = [1,2,3,4,5];
+const listItems = numbers.map((number) => //배열에 들어있는 요소를 하나씩 꺼낼때는 단수형을 써서 혼란이 없게
+    <li>{number}</li>
+);
+```
+10.3 기본적인 리스트 컴포넌트
+props 받은 숫자를 number로 렌더링
+```js
+function NumberList(props){
+  const {numbers} = props;
+
+  const listItems = numbers.amp((number) => 
+     <li>{number}</li>
+  );
+
+  return(
+    <ul>{listItems}</ul>
+  );
+}
+
+const numbers = [1,2,3,4,5];
+RectDOM.render(
+  <NumberList numbers={numbers} />,
+  document.getElementById('root')
+);
+```
+이코드를 실행하면 "리스트아이템에 무조건 키가 있어야 한다"는 경고 문구가나옴
+
+key props가 없기 때문이다.
+
+10.4 리스트의 키에 대해 알아보기
+
+키는 "리스트에서 아이템을 구별하기 위한 고유한 문자열"
+
+키는 같은 리스트에 있는 엘리먼트 사이에서만 고유한 값이면 상관 x(대학교(키)만 다르면 학번이 같아도 상관 x)
+
+10.5 출석부 실습
+
+chapter_10 AttendanceBook.jsx
+```js
+import React from "react";
+
+const students = [
+    {
+        id: 1,
+        name: "Inje",
+    },
+    {
+        id: 2,
+        name: "Steve",
+    },
+    {
+        id: 3,
+        name: "Bill",
+    },
+    {
+        id: 4,
+        name: "Jeff",
+    },
+];
+
+function AttendanceBook(props) {
+    return (
+        <ul>
+            {students.map((student, index) => {
+                return <li key={student.id}>{student.name}</li>;
+            })}
+        </ul>
+    );
+}
+
+export default AttendanceBook;
+```
+11장 폼
+
+11.1 폼이란 무엇인가?
+
+폼은 일반적으로 사용자로부터 입ㄺ을 받귀 위한 양식에서 사용
+
+11.2 제어컴포넌트
+
+사용자가 입력한 값에 접근하고 제어할 수 있도록 해주는 컴포넌트
+일반적인 것은 태그안에서 state를 관리하지만 제어컴포넌트는 모든 데이터를 state에서 관리
+
+11.3 textarea 태그
+
+리액트는 state 를 통해 value라는 attribute를 변경하여 텍스트를 표시 
+```js
+<textarea value={value} onChange={handleChange} /> //교수님은 끝에 / 싱글테그 일때 사용
+```
+11.4 select 태그
+
+select태그도 textarea와 통일
+```js
+<select value={value} onChange={handleChange}>
+  <option value="apple"> 사과 </option>
+  <option value="banana"> 바나나 </option>
+  <option value="grape"> 포도 </option>
+  <option value="watermelon"> 수박 </option>
+  </select>
+```
+
+11.5 File input 태그
+
+File input 태그는 그값이 읽기 전용이기 때문에 리액트에서 비제어 컴포넌트가 된다.
+```js
+<input type="file" />
+```
+11.6 여러 개의 입력 다루기
+
+11.7Input Null Value
+
+제어 컴포넌트에서 value prop을 정해진 값으로 넣으면 코드를 수정하지 않는 한 입력값을 바꿀 수 없음
+
+만약 value prop은 넣되 자유롭게 입력할 수 있게 만들고 싶다면, 값이 undefined 또는 null을 넣어주면된다.
+
+11.8 사용자 정보 입력 받기 실습
+
+chapter_11 SignUp.jsx
+```js
+import React, { useState } from "react";
+
+function SignUp(props) {
+    const [name, setName] = useState("");
+    const [gender, setGender] = useState("남자");
+
+    const handleChangeName = (event) => {
+        setName(event.target.value);
+    };
+
+    const handleChangeGender = (event) => {
+        setGender(event.target.value);
+    };
+
+    const handleSubmit = (event) => {
+        alert(`이름: ${name}, 성별: ${gender}`);
+        event.preventDefault();
+    };
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <label>
+                이름:
+                <input type="text" value={name} onChange={handleChangeName} />
+            </label>
+            <br />
+            <label>
+                성별:
+                <select value={gender} onChange={handleChangeGender}>
+                    <option value="남자">남자</option>
+                    <option value="여자">여자</option>
+                </select>
+            </label>
+            <button type="submit">제출</button>
+        </form>
+    );
+}
+
+export default SignUp;
+```
+
+12. state 끌어올리기
+
+12.1 Shared State
+
+> 말그대로 공유된 State를 의미 , 상위 컴포넌트에 있는 데이터를 여러개의 하위 컴포넌트에서 공통적으로 사용하는 경우
+
+12.2 하위 컴포넌트에서 State 공유하기
+
+물이 끊음 여부를 알려주는 컴포넌트
+```js
+function BoilngVerdict(props){
+  if (props.celsius >= 100) {
+    return <p>물이 끓습니다.</p>;
+  }
+    return <p>물이 끓지 않습니다.</p>;
+}
+```
+썹씨온도값을 props로 받아 조건문 돌리기
+
+---
  ## 강의날 4/27 9주차
 --- 
 8.1 이벤트 처리하기
