@@ -103,6 +103,7 @@ function TemperatureInput(props) {
 export default TemperatureInput;
 ```
 작동화면
+
 ![image](https://github.com/jingu0318/23-react1/assets/116775121/a931fc63-de00-4b84-ab86-24928283fabf)
 
 ---
