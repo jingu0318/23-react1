@@ -1,6 +1,110 @@
 
 # 23-React1 이진구
 ---
+ ## 강의날 5/11 11주차
+--- 
+12.2 shared State 적용하기
+
+하위 컴포넌트의 State를 부모 컴포넌트로 올려서 shared state를 적용 > State끌어올리기 라고 함
+
+12.3 실습 섭씨온도와 화씨온도 표시하기
+
+Calculator.jsx 내용
+```js
+import React, { useState } from "react";
+import TemperatureInput from "./TemperatureInput";
+
+function BoilingVerdict(props) {
+    if (props.celsius >= 100) {
+        return <p>물이 끓습니다.</p>;
+    }
+    return <p>물이 끓지 않습니다.</p>;
+}
+
+function toCelsius(fahrenheit) {
+    return ((fahrenheit - 32) * 5) / 9;
+}
+
+function toFahrenheit(celsius) {
+    return (celsius * 9) / 5 + 32;
+}
+
+function tryConvert(temperature, convert) {
+    const input = parseFloat(temperature);
+    if (Number.isNaN(input)) {
+        return "";
+    }
+    const output = convert(input);
+    const rounded = Math.round(output * 1000) / 1000;
+    return rounded.toString();
+}
+
+function Calculator(props) {
+    const [temperature, setTemperature] = useState("");
+    const [scale, setScale] = useState("c");
+
+    const handleCelsiusChange = (temperature) => {
+        setTemperature(temperature);
+        setScale("c");
+    };
+
+    const handleFahrenheitChange = (temperature) => {
+        setTemperature(temperature);
+        setScale("f");
+    };
+
+    const celsius =
+        scale === "f" ? tryConvert(temperature, toCelsius) : temperature;
+    const fahrenheit =
+        scale === "c" ? tryConvert(temperature, toFahrenheit) : temperature;
+
+    return (
+        <div>
+            <TemperatureInput
+                scale="c"
+                temperature={celsius}
+                onTemperatureChange={handleCelsiusChange}
+            />
+            <TemperatureInput
+                scale="f"
+                temperature={fahrenheit}
+                onTemperatureChange={handleFahrenheitChange}
+            />
+            <BoilingVerdict celsius={parseFloat(celsius)} />
+        </div>
+    );
+}
+
+export default Calculator;
+```
+
+TemperatureInput.jsx 내용
+```js
+const scaleNames = {
+  c: "섭씨",
+  f: "화씨",
+};
+
+function TemperatureInput(props) {
+  const handleChange = (event) => {
+      props.onTemperatureChange(event.target.value);
+  };
+
+  return (
+      <fieldset>
+          <legend>
+              온도를 입력해주세요(단위:{scaleNames[props.scale]}):
+          </legend>
+          <input value={props.temperature} onChange={handleChange} />
+      </fieldset>
+  );
+}
+
+export default TemperatureInput;
+```
+작동화면
+image.png
+---
  ## 강의날 5/04 10주차
 --- 
 10.1 리스트와 키(지난시간에 잠깐봤지만 다시)
