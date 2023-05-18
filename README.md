@@ -177,6 +177,9 @@ index.js 파일 수정
 
 App을 실행하고 정상동작 여부 확인
 
+![image](https://github.com/jingu0318/23-react1/assets/116775121/31633e75-149a-4c49-a57c-a559a19acbd5)
+
+
 ---
  ## 강의날 5/11 11주차
 --- 
