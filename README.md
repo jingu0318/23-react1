@@ -1,13 +1,190 @@
 
 # 23-React1 이진구
 ---
+ ## 강의날 5/18 12주차
+--- 
+### 13장 합성 vs 상속
+
+#### 13.1 합성이란
+합성(composition)은 '여러 개의 컴포넌트를 합쳐서 새로운 컴포넌트를 만드는 것'
+
+조합 방법에 따라 합성의 사용 기법은 다음과 같이 나눌 수 있음
+
+1. Containment (담다,포함하다,격리하다)
+
+특정 컴포넌트가 하위 컴포넌트를 포함하는 형태의 합성 방법입니다.
+
+이런 컴포넌트는 children prop을 사용하여 자식 엘리먼트를 추려에 그대로 전달하는 것이 좋음
+
+children prop은 컴포넌트의 props에 기본적으로 들어 있는 children 속성 사용
+```js
+function FancyBorder(props){
+    return (
+        <div className={'FancyBorder FancyBorder~' + props.color}>
+            {props.children}
+        </div>
+    );
+}
+```
+children은 다음 구조에서 세번째 들어가는 파라미터
+파라미터가 배열로 되어있는 이유는 여러개의 하위 컴포넌트를 가질 수 있기 때문
+
+React.createElement()에 관하여
+
+jsx를 이용한 간단한 방법
+```js
+const jsxElement = <h1 className="jsx"> jsx Element </h1>
+```
+
+리액트 기능을 사용한 방법
+```js
+const reactElement = React.createElement(
+    'h1',  //tag
+    {className: 'obj'}, //props
+    'obj Element' //chil element
+)
+```
+jsx를 사용하지 않는 것에 장점이 나타난다.
+
+chil element 속성을 배열로 여러개 나타낼 수 있다.
+
+
+SplitPane 은 화면을 왼쪽, 오른쪽으로 분할해줌
+```js
+function SplitPane(props){
+    return(
+        <div className="SplitPane">
+            <div className="SplitPane-left">
+                {props.left}
+            </div>
+            <div className="SplitPane-right">
+                {props.right}
+            </div>
+        </div>  
+    );
+}
+
+function App(props){
+    return(
+        <SplitPane
+        left={
+                <Contacts/>
+        }
+        right={
+            <chat/>
+        }
+        />
+    );
+}
+```
+2. Specialization(특수화,전문화)
+
+웰컴다이어로그는 다이얼로그의 특별한 케이스
+
+범용적인 개념을 구별이 되게 구체화하는 것을 특수화라고 함
+
+객체지향 언어에서는 상속을 사용하여 특수화를 구현
+
+리액트에서는 합성을 사용하여 특수화를 구현
+
+다음 예와 같이 특수화는 범용적으로 쓸수 있는 컴포넌트를 만들어 놓고 이를 특수한 목적으로 사용하는 합성 방식
+```js
+function Dialog(props){
+    return(
+        <FancyBorder color="bule">
+            <h1 className="Dialog-title">
+                {props.title}
+            </h1>
+            <p className="Dialog-message">
+                {props.message}
+            </p>
+        </FancyBorder>
+    );
+}
+
+function WelcomeDalog(props){
+    return(
+        <Dialog
+            title="어서 오세요"
+            message="우리 사이트에 방문하신 것을 환영합니다!"
+            />
+    );
+}
+```
+
+3. Containment 와 Specialization을 같이 사용하기
+
+Containment를 위해서 props.children을 사용하고 , Specialization을 위해 직접 정의한 props를 사용하면 된다.
+
+이전 위 코드와 동일하지만 props.children가 추가됌
+
+추가됨으로써 입력받는 [input , button]을 children 통해 사용 가능
+
+#### 13.2 상속에 대해 알아보기
+
+합성과 대비되는 개념으로는 상속(inheritance)이 있음
+
+자식 클래스는 부모 클래스가 가진 변수나 함수등의 속성을 모두 갖게되는 개념
+
+하지만 리액트에서는 상속보다 합성을 통해 새로운 컴포넌트를 생성
+
+#### 13.3 실습 Card 컴포넌트 만들기
+
+Card.jsx 컴포넌트 만들기 하위 컴포넌트를 감싸서 카드 형태로 보여주는 컴포넌트.
+
+Card 컴포넌트를 사용하여 ProfileCard(Specialization) 컴포넌트 제작
+
+Card.jsx
+```js
+function Card(props) {
+    const { title, backgroundColor, children } = props;
+
+    return (
+        <div
+            style={{
+                margin: 8,
+                padding: 8,
+                borderRadius: 8,
+                boxShadow: "0px 0px 4px grey",
+                backgroundColor: backgroundColor || "white",
+            }}
+        >
+            {title && <h1>{title}</h1>}
+            {children}
+        </div>
+    );
+}
+
+export default Card;
+```
+
+ProfileCard.jsx
+```js
+import Card from "./Card";
+
+function ProfileCard(props) {
+    return (
+        <Card title="Inje Lee" backgroundColor="#4ea04e">
+            <p>안녕하세요, 소플입니다.</p>
+            <p>저는 리액트를 사용해서 개발하고 있습니다.</p>
+        </Card>
+    );
+}
+
+export default ProfileCard;
+```
+index.js 파일 수정
+
+App을 실행하고 정상동작 여부 확인
+
+---
  ## 강의날 5/11 11주차
 --- 
-12.2 shared State 적용하기
+#### 12.2 shared State 적용하기
 
 하위 컴포넌트의 State를 부모 컴포넌트로 올려서 shared state를 적용 > State끌어올리기 라고 함
 
-12.3 실습 섭씨온도와 화씨온도 표시하기
+#### 12.3 실습 섭씨온도와 화씨온도 표시하기
 
 Calculator.jsx 내용
 ```js
@@ -109,11 +286,11 @@ export default TemperatureInput;
 ---
  ## 강의날 5/04 10주차
 --- 
-10.1 리스트와 키(지난시간에 잠깐봤지만 다시)
+#### 10.1 리스트와 키(지난시간에 잠깐봤지만 다시)
 
 리스트는 다수의 엘리먼트를 쉽게 렌더링할 수 있게 해준다.
 
-10.2 여러 개의 컴포넌트 렌더링하기
+#### 10.2 여러 개의 컴포넌트 렌더링하기
 
 배열에 들어 있는 엘리먼트를 map()함수를 이용하여 랜더링
 
@@ -124,7 +301,7 @@ const listItems = numbers.map((number) => //배열에 들어있는 요소를 하
     <li>{number}</li>
 );
 ```
-10.3 기본적인 리스트 컴포넌트
+#### 10.3 기본적인 리스트 컴포넌트
 props 받은 숫자를 number로 렌더링
 ```js
 function NumberList(props){
@@ -149,13 +326,13 @@ RectDOM.render(
 
 key props가 없기 때문이다.
 
-10.4 리스트의 키에 대해 알아보기
+#### 10.4 리스트의 키에 대해 알아보기
 
 키는 "리스트에서 아이템을 구별하기 위한 고유한 문자열"
 
 키는 같은 리스트에 있는 엘리먼트 사이에서만 고유한 값이면 상관 x(대학교(키)만 다르면 학번이 같아도 상관 x)
 
-10.5 출석부 실습
+#### 10.5 출석부 실습
 
 chapter_10 AttendanceBook.jsx
 ```js
