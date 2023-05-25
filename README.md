@@ -1,6 +1,93 @@
 
 # 23-React1 이진구
 ---
+ ## 강의날 5/25 13주차
+--- 
+#### 14.5 여러 개의 컨텍스트 사용하기
+---
+여러개의 콘텍스트를 동시에 사용하려면 Context.Provider를 중첩 사용
+
+#### 14.6 useContext
+함수형 컴포넌트에서 컨텍스트를 사용하기위해 컴포넌트를 매번 consumer컴포넌트로 감싸는것보다 더좋은방법은 7장의 hook이다
+
+```js
+function MyComponent(prop){
+    const value = useContext(MyContext);
+
+    return(
+        ...
+    )
+}
+```
+useContext는 객체를 넣어서 사용해야된다.
+
+#### 14.7 실습해보기
+
+ThemeContext.jsx
+```js
+import React from "react";
+
+const ThemeContext = React.createContext();
+ThemeContext.displayName = "ThemeContext";
+
+export default ThemeContext;
+```
+
+MainContent.jsx 
+```js
+import { useContext } from "react";
+import ThemeContext from "./ThemeContext";
+
+function MainContent(props) {
+    const { theme, toggleTheme } = useContext(ThemeContext);
+
+    return (
+        <div
+            style={{
+                width: "100vw",
+                height: "100vh",
+                padding: "1.5rem",
+                backgroundColor: theme == "light" ? "white" : "black",
+                color: theme == "light" ? "black" : "white",
+            }}
+        >
+            <p>안녕하세요, 테마 변경이 가능한 웹사이트 입니다.</p>
+            <button onClick={toggleTheme}>테마 변경</button>
+        </div>
+    );
+}
+
+export default MainContent;
+```
+DarkOrLight.jsx
+```js
+import { useState, useCallback } from "react";
+import ThemeContext from "./ThemeContext";
+import MainContent from "./MainContent";
+
+function DarkOrLight(props) {
+    const [theme, setTheme] = useState("light");
+
+    const toggleTheme = useCallback(() => {
+        if (theme == "light") {
+            setTheme("dark");
+        } else if (theme == "dark") {
+            setTheme("light");
+        }
+    }, [theme]);
+
+    return (
+        <ThemeContext.Provider value={{ theme, toggleTheme }}>
+            <MainContent />
+        </ThemeContext.Provider>
+    );
+}
+
+export default DarkOrLight;
+```
+
+
+
  ## 강의날 5/18 12주차
 --- 
 ### 13장 합성 vs 상속
@@ -183,6 +270,8 @@ App을 실행하고 정상동작 여부 확인
 
 #### 14.1 컨텍스트란 무엇인가
 
+*** 대표적인 전달 방식 props , state는  공통점으로 부모자식 관계** 
+
 리액트 컴포넌트들 사이에서 기존 props를 통해 데이터를 전달하는 방식 대신 컨텍스트란  '컴포넌트 트리를 통해 곧바로 컴포넌트에 전달하는 새로운 방식'
 
 이를 통해 어떤 컴포넌트라도 쉽게 데이터에 접근 가능
@@ -205,8 +294,6 @@ App을 실행하고 정상동작 여부 확인
 
 #### 14.4 컨텍스트 API
 
-이 절에서는 리액트에서 제공하는 컨텍스트 API를 통해 컨텍스트를 어떻게 사용하는지에 대해
-
 1. React.createContext
 
 컨텍스트를 생성하기 위한 함수
@@ -222,7 +309,7 @@ Context.Procider 컴포넌트로 하위 컴포넌트들을 감싸주면 모든 �
 ```js
 <MyContext.Provider value={/*some value*/}>
 ```
-컴포넌트에는 value라는 prop이 있고 이것은 Procider컴포넌트 하위에 있는 컴포넌트에게 전달
+컴포넌트에는 value라는 prop이 있고 이것은 Provider컴포넌트 하위에 있는 컴포넌트에게 전달
 
 하위 컴포넌트는 consumer 컴포넌트라 부름
 
