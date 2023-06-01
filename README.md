@@ -85,7 +85,18 @@ function DarkOrLight(props) {
 
 export default DarkOrLight;
 ```
-리드미 올리기
+
+create react app
+
+npm start 해서 잘구동하는지 확인
+
+npm install --save react-router-dom 설치(라우터 꼭 사용해볼것)
+
+src 밑 component 에 폴더로 정리
+
+production 빌드하기 > npm run build
+
+
 
 
  ## 강의날 5/18 12주차
