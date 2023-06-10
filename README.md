@@ -715,7 +715,7 @@ export default ConfirmButton;
 ```
 인덱스 js 수정 후 rpm start
 
-9.조건부 렌더링
+### 9.조건부 렌더링
 
 #### 9.1조건부 렌더링이란?
 
